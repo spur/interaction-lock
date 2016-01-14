@@ -1,0 +1,57 @@
+div {
+  box-sizing: border-box;
+}
+
+html {
+  touch-action: none;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+  font-size: 12px;
+}
+
+#test {
+  height: 100%;
+}
+
+.test {
+  height: 100%;
+
+  .hover {
+    border: 1px solid black;
+  }
+
+  .first-level {
+    position: relative;
+    height: 90%;
+    background-color: #fcf;
+
+    .second-level {
+      position: absolute;
+      height: 40%;
+      width: 90%;
+      left: 5%;
+
+      &.a {
+        background-color: #ccc;
+        top: 5%;
+      }
+
+      &.b {
+        background-color: #bbb;
+        top: 55%;
+      }
+    }
+  }
+}
