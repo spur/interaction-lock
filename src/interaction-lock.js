@@ -1,8 +1,9 @@
-var lockNodes = [];
+var lockNodes = {};
+var lockId = 0;
 
-function isLocked(DOMNode){
-  for (var i = 0, len = lockNodes.length; i < len; i += 1) {
-    var node = lockNodes[i];
+function isLocked(DOMNode) {
+  for (var lockId in lockNodes) {
+    var node = lockNodes[lockId];
     while (node !== null) {
       if (node === DOMNode) { return true; }
       node = node.parentNode;
@@ -13,16 +14,17 @@ function isLocked(DOMNode){
 }
 
 function requestLockOn(DOMNode) {
-  if (isLocked(DOMNode)) { return false; }
+  if (isLocked(DOMNode)) { return null; }
 
-  lockNodes.push(DOMNode);
-  return true;
+  lockId += 1;
+  lockNodes[lockId] = DOMNode;
+  return lockId;
 }
 
-function releaseLockOn(DOMNode) {
-  var index = lockNodes.indexOf(DOMNode);
-  if (index !== -1) {
-    lockNodes.splice(index, 1);
+function releaseLock(lockId) {
+  if (lockNodes[lockId]) {
+    delete lockNodes[lockId];
+    lockId -= 1;
   }
 }
 
