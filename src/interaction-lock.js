@@ -1,3 +1,6 @@
+var EventEmitter = require('events').EventEmitter;
+
+var emitter = new EventEmitter();
 var lockNodes = {};
 var lockId = 0;
 
@@ -12,24 +15,26 @@ function isLocked(DOMNode) {
 
   return false;
 }
+emitter.isLocked = isLocked;
 
 function requestLockOn(DOMNode) {
   if (isLocked(DOMNode)) { return null; }
 
   lockId += 1;
   lockNodes[lockId] = DOMNode;
+  emitter.emit('lock', DOMNode);
   return lockId;
 }
+emitter.requestLockOn = requestLockOn;
 
 function releaseLock(lockId) {
-  if (lockNodes[lockId]) {
+  const DOMNode = lockNodes[lockId];
+  if (DOMNode) {
     delete lockNodes[lockId];
     lockId -= 1;
+    emitter.emit('unlock', DOMNode);
   }
 }
+emitter.releaseLock = releaseLock;
 
-module.exports = {
-  isLocked: isLocked,
-  requestLockOn: requestLockOn,
-  releaseLockOn: releaseLockOn
-};
+module.exports = emitter;
