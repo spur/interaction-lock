@@ -2,7 +2,7 @@
   "name": "spur-interaction-lock",
   "version": "0.1.0",
   "description": "Handling concurrent user interactions.",
-  "main": "src/interaction-lock.js",
+  "main": "interaction-lock.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spur/interaction-lock.git"

@@ -27,10 +27,10 @@ function requestLockOn(DOMNode) {
 }
 emitter.requestLockOn = requestLockOn;
 
-function releaseLock(lockId) {
-  const DOMNode = lockNodes[lockId];
+function releaseLock(id) {
+  const DOMNode = lockNodes[id];
   if (DOMNode) {
-    delete lockNodes[lockId];
+    delete lockNodes[id];
     lockId -= 1;
     emitter.emit('unlock', DOMNode);
   }
